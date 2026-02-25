@@ -1,0 +1,167 @@
+.photoelectric-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  padding: 40px 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.sim-header {
+  max-width: 1100px;
+  margin: 0 auto 40px;
+  text-align: center;
+  color: #2c3e50;
+}
+
+.sim-header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: #667eea;
+}
+
+.sim-header p {
+  font-size: 1.1rem;
+  color: #5a6c7d;
+  line-height: 1.6;
+}
+
+.sim-wrapper {
+  max-width: 1100px;
+  margin: 0 auto 50px;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+
+.sim-wrapper iframe {
+  display: block;
+  border: none;
+}
+
+.sim-info {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
+}
+
+.info-section {
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+  border-left: 5px solid #667eea;
+  transition: all 0.3s ease;
+}
+
+.info-section:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+}
+
+.info-section h3 {
+  font-size: 1.4rem;
+  color: #2c3e50;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.info-section p {
+  color: #5a6c7d;
+  line-height: 1.7;
+  margin-bottom: 15px;
+  font-size: 0.95rem;
+}
+
+.info-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 15px 0;
+}
+
+.info-section li {
+  color: #5a6c7d;
+  padding: 8px 0 8px 25px;
+  position: relative;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.info-section li:before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: #4ECDC4;
+  font-weight: bold;
+}
+
+.info-section strong {
+  color: #667eea;
+  font-weight: 600;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .photoelectric-container {
+    padding: 20px;
+  }
+
+  .sim-header h1 {
+    font-size: 1.8rem;
+  }
+
+  .sim-header p {
+    font-size: 1rem;
+  }
+
+  .sim-wrapper {
+    margin-bottom: 30px;
+  }
+
+  .sim-wrapper iframe {
+    height: 400px !important;
+  }
+
+  .info-section {
+    padding: 20px;
+  }
+
+  .info-section h3 {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .photoelectric-container {
+    padding: 15px;
+  }
+
+  .sim-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .sim-wrapper iframe {
+    height: 300px !important;
+  }
+
+  .sim-info {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .info-section {
+    padding: 15px;
+    border-left-width: 3px;
+  }
+
+  .info-section h3 {
+    font-size: 1.1rem;
+  }
+
+  .info-section p,
+  .info-section li {
+    font-size: 0.9rem;
+  }
+}
