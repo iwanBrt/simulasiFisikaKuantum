@@ -63,11 +63,11 @@ const ComptonSimulation = () => {
   const draw = (ctx) => {
     ctx.clearRect(0, 0, 600, 400);
 
-    // Latar belakang grid lembut agar mirip tampilan lembar kerja pada contoh
-    ctx.fillStyle = '#f9fafb';
+    // Latar belakang grid dengan tema gelap
+    ctx.fillStyle = '#020617';
     ctx.fillRect(0, 0, 600, 400);
 
-    ctx.strokeStyle = '#e5e7eb';
+    ctx.strokeStyle = '#111827';
     ctx.lineWidth = 1;
 
     // Garis vertikal

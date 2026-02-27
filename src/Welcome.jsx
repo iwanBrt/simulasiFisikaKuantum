@@ -6,26 +6,32 @@ export default function Welcome({ onSelectSimulation }) {
     {
       id: 1,
       title: 'Blackbody Spectrum',
-      description: 'Pelajari spektrum radiasi benda hitam dan bagaimana temperatur mempengaruhi distribusi panjang gelombang.',
-      icon: '🌡️',
-      image: '⚫',
-      page: 'blackbody'
+      description:
+        'Pelajari spektrum radiasi benda hitam dan bagaimana temperatur mempengaruhi distribusi panjang gelombang.',
+      level: 'Dasar',
+      tag: 'Termal',
+      page: 'blackbody',
+      accent: '#FF6B6B',
     },
     {
       id: 2,
       title: 'Efek Fotolistrik',
-      description: 'Jelajahi fenomena ejeksi elektron dari logam saat terkena cahaya dan hubungannya dengan frekuensi.',
-      icon: '⚡',
-      image: '💡',
-      page: 'photoelectric'
+      description:
+        'Jelajahi fenomena ejeksi elektron dari logam saat terkena cahaya dan hubungannya dengan frekuensi.',
+      level: 'Menengah',
+      tag: 'Kuantum',
+      page: 'photoelectric',
+      accent: '#4ECDC4',
     },
     {
       id: 3,
       title: 'Hamburan Compton',
-      description: 'Pahami interaksi foton dengan elektron dan perubahan panjang gelombang dalam mekanika kuantum.',
-      icon: '📊',
-      image: '🔬',
-      page: 'compton'
+      description:
+        'Pahami interaksi foton dengan elektron dan perubahan panjang gelombang dalam mekanika kuantum.',
+      level: 'Lanjut',
+      tag: 'Relativistik',
+      page: 'compton',
+      accent: '#95E1D3',
     },
   ];
 
@@ -33,94 +39,151 @@ export default function Welcome({ onSelectSimulation }) {
     <div className="welcome-container">
       {/* Hero Section */}
       <section className="hero">
-        <div className="hero-content">
-          <h1 className="hero-title">Simulasi Sains Kuantum</h1>
-          <p className="hero-subtitle">Jelajahi Fenomena Fisika Kuantum</p>
-          <p className="hero-description">
-            Pelajari konsep-konsep penting melalui simulasi interaktif dan visualisasi yang mudah dipahami
-          </p>
-          <a href="#simulations" className="cta-button">
-            Mulai Sekarang
-          </a>
-        </div>
-        <div className="hero-background">
-          <div className="particle particle-1"></div>
-          <div className="particle particle-2"></div>
-          <div className="particle particle-3"></div>
+        <div className="hero-inner">
+          <div className="hero-content">
+            <span className="hero-pill">Platform Simulasi Fisika Kuantum</span>
+            <h1 className="hero-title">Simulasi Sains Kuantum Interaktif</h1>
+            <p className="hero-subtitle">
+              Visualisasi modern untuk memahami konsep fisika kuantum yang kompleks secara intuitif dan terstruktur.
+            </p>
+            <div className="hero-actions">
+              <a href="#simulations" className="cta-button primary">
+                Mulai Eksperimen
+              </a>
+              <button
+                type="button"
+                className="cta-button secondary"
+                onClick={() => onSelectSimulation(simulations[0].page)}
+              >
+                Coba Blackbody Spectrum
+              </button>
+            </div>
+            <div className="hero-metadata">
+              <div className="hero-metric">
+                <span className="hero-metric-value">3+</span>
+                <span className="hero-metric-label">Simulasi inti</span>
+              </div>
+              <div className="hero-metric">
+                <span className="hero-metric-value">100%</span>
+                <span className="hero-metric-label">Berbasis web</span>
+              </div>
+              <div className="hero-metric">
+                <span className="hero-metric-value">Realtime</span>
+                <span className="hero-metric-label">Visualisasi hasil</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="hero-visual">
+            <div className="hero-card">
+              <div className="hero-card-header">
+                <span className="hero-card-title">Spektrum Intensitas</span>
+                <span className="hero-card-badge">Live preview</span>
+              </div>
+              <div className="hero-chart">
+                <div className="hero-chart-line hero-chart-line-1" />
+                <div className="hero-chart-line hero-chart-line-2" />
+                <div className="hero-chart-line hero-chart-line-3" />
+              </div>
+              <div className="hero-card-footer">
+                <div className="hero-card-row">
+                  <span>Temperatur</span>
+                  <span>3000 K</span>
+                </div>
+                <div className="hero-card-row">
+                  <span>Panjang gelombang puncak</span>
+                  <span>≈ 966 nm</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* Simulations Section */}
       <section id="simulations" className="simulations-section">
-        <h2 className="section-title">Pilih Simulasi</h2>
-        <p className="section-subtitle">Klik untuk memulai pembelajaran</p>
-        
+        <div className="section-header">
+          <div>
+            <h2 className="section-title">Koleksi Simulasi</h2>
+            <p className="section-subtitle">
+              Pilih simulasi yang sesuai dengan topik pembelajaran atau tingkat kesulitan yang Anda inginkan.
+            </p>
+          </div>
+          <div className="section-tagline">Terstruktur dari dasar hingga lanjut</div>
+        </div>
+
         <div className="simulations-grid">
           {simulations.map((sim) => (
-            <div key={sim.id} className="simulation-card" style={{ borderTopColor: sim.id === 1 ? '#FF6B6B' : sim.id === 2 ? '#4ECDC4' : '#95E1D3' }}>
-              <div className="card-icon-large">{sim.image}</div>
-              <div className="card-icon">{sim.icon}</div>
-              
+            <article key={sim.id} className="simulation-card">
+              <header className="simulation-card-header">
+                <span className="simulation-tag" style={{ backgroundColor: `${sim.accent}15`, color: sim.accent }}>
+                  {sim.tag}
+                </span>
+                <span className="simulation-level">{sim.level}</span>
+              </header>
+
               <h3 className="card-title">{sim.title}</h3>
               <p className="card-description">{sim.description}</p>
-              
-              <button 
-                className="card-button"
-                style={{ 
-                  backgroundColor: sim.id === 1 ? '#FF6B6B' : sim.id === 2 ? '#4ECDC4' : '#95E1D3'
-                }}
-                onClick={() => onSelectSimulation(sim.page)}
-              >
-                Buka Simulasi
-              </button>
-            </div>
+
+              <div className="card-footer">
+                <button
+                  className="card-button"
+                  style={{ backgroundColor: sim.accent }}
+                  onClick={() => onSelectSimulation(sim.page)}
+                >
+                  Buka Simulasi
+                </button>
+                <span className="card-secondary-text">Penyesuaian parameter secara realtime</span>
+              </div>
+            </article>
           ))}
         </div>
       </section>
 
       {/* Features Section */}
       <section className="features-section">
-        <h2 className="section-title">Mengapa Simulasi Sains?</h2>
-        
+        <div className="section-header centered">
+          <h2 className="section-title">Dirancang untuk Pembelajaran Profesional</h2>
+          <p className="section-subtitle">
+            Antarmuka rapi, fokus pada konsep inti, sehingga cocok digunakan di kelas maupun studi mandiri.
+          </p>
+        </div>
+
         <div className="features-grid">
           <div className="feature-item">
-            <div className="feature-icon">🎯</div>
             <h4>Pembelajaran Interaktif</h4>
-            <p>Pahami konsep dengan cara yang menyenangkan melalui simulasi langsung</p>
+            <p>Kontrol variabel utama secara langsung dan amati perubahan hasil secara instan.</p>
           </div>
-          
+
           <div className="feature-item">
-            <div className="feature-icon">🔍</div>
-            <h4>Visualisasi Jelas</h4>
-            <p>Lihat fenomena fisika kompleks menjadi animasi mudah dipahami</p>
+            <h4>Visualisasi yang Rapi</h4>
+            <p>Grafik dan tampilan data disusun dengan gaya minimalis untuk memudahkan analisis.</p>
           </div>
-          
+
           <div className="feature-item">
-            <div className="feature-icon">⚙️</div>
-            <h4>Kontrol Penuh</h4>
-            <p>Ubah parameter dan lihat hasilnya secara real-time</p>
+            <h4>Struktur Materi Jelas</h4>
+            <p>Setiap simulasi dilengkapi konteks konsep sehingga tidak terlepas dari teori.</p>
           </div>
-          
+
           <div className="feature-item">
-            <div className="feature-icon">📚</div>
-            <h4>Teori & Praktek</h4>
-            <p>Kombinasi penjelasan teori dengan aplikasi praktis</p>
+            <h4>Siap Digunakan di Kelas</h4>
+            <p>Mudah dioperasikan oleh dosen maupun mahasiswa, cukup melalui browser.</p>
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
       <section className="cta-section">
-        <h2>Siap Memulai?</h2>
-        <p>Mulai petualangan Anda ke dunia fisika kuantum</p>
+        <h2>Mulai Eksplorasi Fisika Kuantum Hari Ini</h2>
+        <p>Bangun intuisi fisika melalui eksperimen digital yang tertata dan profesional.</p>
         <a href="#simulations" className="cta-button-large">
-          Pilih Simulasi
+          Lihat Semua Simulasi
         </a>
       </section>
 
       {/* Footer */}
       <footer className="footer">
-        <p>&copy; 2024 Simulasi Sains Kuantum. Dibuat untuk pendidikan fisika.</p>
+        <p>&copy; 2024 Simulasi Sains Kuantum · Dibuat untuk keperluan pendidikan.</p>
       </footer>
     </div>
   );
