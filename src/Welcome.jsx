@@ -1,7 +1,39 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import './Welcome.css';
 
+// Konstanta Planck untuk kurva spektrum (preview 3000 K)
+const C1 = 3.741e-16;
+const C2 = 1.4388e-2;
+const PREVIEW_T = 3000;
+const MIN_L = 200;
+const MAX_L = 3000;
+
+function getBlackbodyCurvePath() {
+  const points = [];
+  const steps = 100;
+  for (let i = 0; i <= steps; i++) {
+    const lambdaNm = MIN_L + ((MAX_L - MIN_L) * i) / steps;
+    const lambdaM = lambdaNm * 1e-9;
+    const exp = C2 / (lambdaM * PREVIEW_T);
+    const intensity = C1 / (Math.pow(lambdaM, 5) * (Math.exp(exp) - 1 || 1e-9));
+    points.push({ lambdaNm, value: isFinite(intensity) ? intensity : 0 });
+  }
+  const max = points.reduce((a, p) => (p.value > a ? p.value : a), 0);
+  const normalized = points.map((p) => ({
+    x: ((p.lambdaNm - MIN_L) / (MAX_L - MIN_L)) * 100,
+    y: 55 - (max ? p.value / max : 0) * 40,
+  }));
+  let d = `M ${normalized[0].x} 55 L ${normalized[0].x} ${normalized[0].y}`;
+  for (let i = 1; i < normalized.length; i++) {
+    d += ` L ${normalized[i].x} ${normalized[i].y}`;
+  }
+  d += ` L ${normalized[normalized.length - 1].x} 55 Z`;
+  return d;
+}
+
 export default function Welcome({ onSelectSimulation }) {
+  const curvePath = useMemo(() => getBlackbodyCurvePath(), []);
+
   const simulations = [
     {
       id: 1,
@@ -81,9 +113,28 @@ export default function Welcome({ onSelectSimulation }) {
                 <span className="hero-card-badge">Live preview</span>
               </div>
               <div className="hero-chart">
-                <div className="hero-chart-line hero-chart-line-1" />
-                <div className="hero-chart-line hero-chart-line-2" />
-                <div className="hero-chart-line hero-chart-line-3" />
+                <svg
+                  className="hero-chart-svg"
+                  viewBox="0 0 100 60"
+                  preserveAspectRatio="none"
+                >
+                  <defs>
+                    <linearGradient id="hero-bb-fill" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stopColor="#0ea5e9" stopOpacity="0.2" />
+                      <stop offset="35%" stopColor="#22c55e" stopOpacity="0.4" />
+                      <stop offset="65%" stopColor="#facc15" stopOpacity="0.5" />
+                      <stop offset="100%" stopColor="#f97316" stopOpacity="0.35" />
+                    </linearGradient>
+                    <linearGradient id="hero-bb-line" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stopColor="#0ea5e9" />
+                      <stop offset="35%" stopColor="#22c55e" />
+                      <stop offset="65%" stopColor="#facc15" />
+                      <stop offset="100%" stopColor="#f97316" />
+                    </linearGradient>
+                  </defs>
+                  <path d={curvePath} fill="url(#hero-bb-fill)" stroke="none" />
+                  <path d={curvePath} fill="none" stroke="url(#hero-bb-line)" strokeWidth="0.8" />
+                </svg>
               </div>
               <div className="hero-card-footer">
                 <div className="hero-card-row">

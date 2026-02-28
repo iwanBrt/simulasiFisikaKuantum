@@ -193,27 +193,10 @@
   margin-bottom: 16px;
 }
 
-.hero-chart-line {
-  position: absolute;
-  inset: 0;
-  opacity: 0.9;
-}
-
-.hero-chart-line-1 {
-  background: radial-gradient(circle at 20% 100%, rgba(96, 165, 250, 0.1), transparent 55%),
-    radial-gradient(circle at 65% 80%, rgba(59, 130, 246, 0.38), transparent 60%);
-}
-
-.hero-chart-line-2 {
-  background: radial-gradient(circle at 12% 90%, rgba(45, 212, 191, 0.24), transparent 55%),
-    radial-gradient(circle at 78% 72%, rgba(59, 130, 246, 0.24), transparent 60%);
-  mix-blend-mode: screen;
-}
-
-.hero-chart-line-3 {
-  background: radial-gradient(circle at 40% 95%, rgba(251, 191, 36, 0.18), transparent 55%),
-    radial-gradient(circle at 80% 110%, rgba(248, 250, 252, 0.18), transparent 55%);
-  mix-blend-mode: screen;
+.hero-chart-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 .hero-card-footer {
