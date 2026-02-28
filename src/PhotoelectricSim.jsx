@@ -1,6 +1,50 @@
 import React, { useMemo, useState } from 'react';
 import './PhotoelectricSim.css';
 
+// Jumlah butiran elektron & jumlah baris aliran
+const MAX_ELECTRON_DOTS = 20;
+const ROWS = 4;
+// Satu putaran penuh agar butiran tersebar sepanjang lintasan (tidak nempel)
+const CYCLE_DURATION = 2.2;
+
+// Komponen butiran elektron: terpisah-pisah seperti PhET (delay lebar + variasi vertikal)
+function ElectronParticles({ active, relativeCurrent }) {
+  const [particles] = useState(() =>
+    Array.from({ length: MAX_ELECTRON_DOTS }, (_, i) => {
+      const row = i % ROWS;
+      const rowOffset = (row + 1) / (ROWS + 1);
+      // Delay tersebar sepanjang satu siklus agar tidak berkelompok
+      const delay = (i / MAX_ELECTRON_DOTS) * CYCLE_DURATION + (row * 0.25);
+      // Sedikit variasi vertikal (±6%) supaya tidak satu garis rapi
+      const jitter = ((i * 7) % 13) - 6;
+      const topPercent = rowOffset * 100 + jitter;
+      return { id: i, delay, topPercent };
+    })
+  );
+
+  const visibleCount = active
+    ? Math.max(4, Math.round(relativeCurrent * MAX_ELECTRON_DOTS))
+    : 0;
+
+  const duration = 1.1 + (1 - relativeCurrent) * 0.7;
+
+  return (
+    <div className="pe-electron-particles">
+      {particles.slice(0, visibleCount).map((p) => (
+        <div
+          key={p.id}
+          className="pe-electron-dot"
+          style={{
+            top: `${p.topPercent}%`,
+            animationDelay: `${p.delay}s`,
+            animationDuration: `${duration}s`,
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
 // Konstanta fisika (disederhanakan untuk perhitungan numerik)
 const H = 6.626e-34; // J·s
 const C = 3e8; // m/s
@@ -280,11 +324,13 @@ const PhotoelectricSim = () => {
                 </div>
                 <div className="pe-gap">
                   <div className="pe-electron-stream">
-                    {emissionPossible && currentActive ? (
-                      <div className="pe-electron-bar" style={{ opacity: 0.9 }} />
-                    ) : emissionPossible ? (
+                    <ElectronParticles
+                      active={emissionPossible && currentActive}
+                      relativeCurrent={relativeCurrent}
+                    />
+                    {!currentActive && emissionPossible && (
                       <div className="pe-electron-bar weak" />
-                    ) : null}
+                    )}
                   </div>
                 </div>
                 <div className="pe-electrode pe-anode">

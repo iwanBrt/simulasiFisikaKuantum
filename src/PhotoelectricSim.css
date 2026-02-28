@@ -360,6 +360,49 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Butiran elektron (arus) bergerak dari katoda ke anoda */
+.pe-electron-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.pe-electron-dot {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #3b82f6;
+  box-shadow: 0 0 4px rgba(59, 130, 246, 0.7);
+  transform: translateY(-50%);
+  left: 4%;
+  animation: pe-electron-move linear infinite;
+  /* Jarak visual antar butiran: tidak nempel */
+  margin: 0;
+}
+
+.pe-electron-dot:nth-child(odd) {
+  background: #60a5fa;
+  width: 7px;
+  height: 7px;
+}
+
+@keyframes pe-electron-move {
+  0% {
+    left: 4%;
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    left: 96%;
+    opacity: 0;
+  }
 }
 
 .pe-electron-bar {
